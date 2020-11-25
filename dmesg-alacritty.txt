@@ -1,0 +1,1 @@
+[  576.486893] alacritty[1095]: segfault at 18 ip 00007fcac3c49239 sp 00007ffcd5a3e100 error 4 in libxkbcommon.so.0.0.0[7fcac3c27000+27000]

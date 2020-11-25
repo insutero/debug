@@ -1,0 +1,43 @@
+GNU gdb (GDB) 10.1
+Copyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-pc-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from swaylock...
+(gdb) run
+Starting program: /usr/bin/swaylock -c 550000
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/libthread_db.so.1".
+[Detaching after fork from child process 944]
+
+Program received signal SIGSEGV, Segmentation fault.
+0x00007ffff7ea97a7 in xkb_state_layout_index_is_active (state=0x0, idx=0, type=XKB_STATE_LAYOUT_EFFECTIVE) at ../src/state.c:1261
+1261	../src/state.c: No such file or directory.
+(gdb) backtrace
+#0  0x00007ffff7ea97a7 in xkb_state_layout_index_is_active (state=0x0, idx=0, type=XKB_STATE_LAYOUT_EFFECTIVE) at ../src/state.c:1261
+#1  0x000000000040a28e in keyboard_modifiers (data=0x412da0 <state>, wl_keyboard=0x4232f0, serial=12, mods_depressed=12, mods_latched=0, mods_locked=0, group=0) at ../seat.c:65
+#2  0x00007ffff769296d in ?? () from /usr/lib/libffi.so.7
+#3  0x00007ffff76916b4 in ?? () from /usr/lib/libffi.so.7
+#4  0x00007ffff7e77eb2 in wl_closure_invoke (closure=closure@entry=0x422690, flags=flags@entry=1, target=<optimized out>, target@entry=0x4232f0, opcode=opcode@entry=4, data=<optimized out>) at src/connection.c:1018
+#5  0x00007ffff7e7491a in dispatch_event (display=display@entry=0x41d720, queue=<optimized out>, queue=<optimized out>) at src/wayland-client.c:1445
+#6  0x00007ffff7e75e6c in dispatch_queue (queue=0x41d7f0, display=0x41d720) at src/wayland-client.c:1591
+#7  wl_display_dispatch_queue_pending (display=0x41d720, queue=0x41d7f0) at src/wayland-client.c:1833
+#8  0x00000000004077ac in display_in (fd=3, mask=1, data=0x0) at ../main.c:1080
+#9  0x0000000000404ac0 in loop_poll (loop=0x423060) at ../loop.c:95
+#10 0x0000000000407e41 in main (argc=3, argv=0x7fffffffec68) at ../main.c:1235
+(gdb) quit
+A debugging session is active.
+
+	Inferior 1 [process 940] will be killed.
+
+Quit anyway? (y or n) y
